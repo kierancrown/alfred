@@ -1,13 +1,38 @@
 import axios from "axios";
+import * as path from "path";
 import config from "../constants.mjs";
 import { registerController } from "../utils/logger.mjs";
+import bodyParser from "body-parser";
 
 const baseUrl = `http://${config.HUE_BRIDGE_IP}/api/${config.HUE_USERNAME}`;
 const discoveredLights = [];
 const log = registerController("Hue Controller");
+var jsonParser = bodyParser.json();
 
-export const initController = async () => {
+const configureRoutes = (app) => {
+  app.get("/hue", (req, res) => {
+    res.sendFile(path.join(path.resolve(), "web/hue.html"));
+  });
+
+  app.get("/hue/status", (req, res) => {
+    res.setHeader("Content-Type", "application/json");
+    res.json({
+      status: "Online",
+      bridgeIP: config.HUE_BRIDGE_IP,
+      lights: discoveredLights,
+    });
+  });
+
+  app.put("/hue/light", jsonParser, (req, res) => {
+    const body = req.body;
+    changeLightState(body.id, { ...body.state });
+    res.json(body);
+  });
+};
+
+export const initController = async (expressServer) => {
   log("Initialising Hue Controller...");
+  configureRoutes(expressServer);
   const lights = await getLights();
   for (const id in lights) {
     discoveredLights.push({ id, ...lights[id] });
@@ -25,6 +50,7 @@ export const getLights = async () => {
 
 export const changeLightState = async (id, state) => {
   log(`Attempting to change light ${id} to state: ${JSON.stringify(state)}`);
+  log(`${baseUrl}/lights/${id}/state`);
   const res = await axios.put(
     `${baseUrl}/lights/${id}/state`,
     JSON.stringify(state)
