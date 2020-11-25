@@ -1,9 +1,9 @@
 import express from "express";
 import ip from "ip";
 import * as path from "path";
-import { log } from "./utils/logger.mjs";
-import { initController as initHueController } from "./controllers/hueController.mjs";
-import config from "./constants.mjs";
+import { log } from "./utils/logger.js";
+import { initController as initHueController } from "./controllers/hueController.js";
+import config from "./constants.js";
 
 const app = express();
 const controllers = [];

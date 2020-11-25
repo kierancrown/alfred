@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as path from "path";
-import config from "../constants.mjs";
-import { registerController } from "../utils/logger.mjs";
+import config from "../constants.js";
+import { registerController } from "../utils/logger.js";
 import bodyParser from "body-parser";
 
 const baseUrl = `http://${config.HUE_BRIDGE_IP}/api/${config.HUE_USERNAME}`;

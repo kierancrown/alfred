@@ -7,14 +7,21 @@
   "repository": "git@github.com:kierancrown/alfred.git",
   "author": "Kieran Crown <kieran.crown@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon --exec babel-node index.js"
+  },
   "dependencies": {
     "axios": "^0.21.0",
+    "babel-cli": "^6.26.0",
     "body-parser": "^1.19.0",
     "castv2": "^0.1.10",
     "express": "^4.17.1",
     "ip": "^1.1.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/node": "^7.12.6",
+    "@babel/preset-env": "^7.12.7",
     "@types/node": "^14.14.9"
   }
 }
