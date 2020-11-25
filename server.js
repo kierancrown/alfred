@@ -8,13 +8,7 @@ import config from "./constants.js";
 const app = express();
 const controllers = [];
 
-app.get("/", function (req, res) {
-  res.redirect("/status");
-});
-
-app.get("/style.css", (req, res) => {
-  res.sendFile(path.join(path.resolve(), "web/style.css"));
-});
+app.use("/", express.static("../alfred-ui/"));
 
 app.get("/status", (req, res) => {
   res.setHeader("Content-Type", "application/json");
