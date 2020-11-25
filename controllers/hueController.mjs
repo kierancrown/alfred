@@ -25,7 +25,11 @@ const configureRoutes = (app) => {
 
   app.put("/hue/light", jsonParser, (req, res) => {
     const body = req.body;
-    changeLightState(body.id, { ...body.state });
+    if (Array.isArray(body)) {
+      body.forEach((b) => {
+        changeLightState(b.id, { ...b.state });
+      });
+    } else changeLightState(body.id, { ...body.state });
     res.json(body);
   });
 };
