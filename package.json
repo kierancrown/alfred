@@ -8,13 +8,13 @@
   "author": "Kieran Crown <kieran.crown@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec babel-node index.js"
+    "start": "nodemon --exec babel-node index.js",
+    "server": "ssh pi@alfred"
   },
   "dependencies": {
     "axios": "^0.21.0",
     "babel-cli": "^6.26.0",
     "body-parser": "^1.19.0",
-    "castv2": "^0.1.10",
     "express": "^4.17.1",
     "ip": "^1.1.5"
   },
