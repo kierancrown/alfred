@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Alfred is my home automation software",
   "main": "server.js",
+  "type": "module",
   "repository": "git@github.com:kierancrown/alfred.git",
   "author": "Kieran Crown <kieran.crown@gmail.com>",
   "license": "MIT",
