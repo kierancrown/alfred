@@ -34,7 +34,7 @@ const configureRoutes = (app) => {
   });
 };
 
-export const initController = async (expressServer) => {
+export const initController = async (expressServer, IOTController) => {
   log("Initialising Hue Controller...");
   configureRoutes(expressServer);
   const lights = await getLights();
@@ -42,6 +42,21 @@ export const initController = async (expressServer) => {
     discoveredLights.push({ id, ...lights[id] });
   }
   log(`Discovered ${discoveredLights.length} lights`);
+  IOTController.subscribeToTopic("changeLights", (payload) => {
+    const body = JSON.parse(payload);
+    if (Array.isArray(body)) {
+      body.forEach((b) => {
+        IOTController.publishToTopic(
+          "changeLightsReply",
+          changeLightState(b.id, { ...b.state })
+        );
+      });
+    } else
+      IOTController.publishToTopic(
+        "changeLightsReply",
+        changeLightState(body.id, { ...body.state })
+      );
+  });
   return { name: "Hue Controller", discoveredLights };
 };
 

@@ -25,7 +25,7 @@ log("Starting Alfred server...");
 app.listen(config.SERVER_PORT, () => {
   log(`Alfred server is running on port ${config.SERVER_PORT}`);
   const initAlfred = async () => {
-    controllers.push(await initHueController(app));
+    controllers.push(await initHueController(app, IOTController));
     log("Successfully initialised Alfred!");
     IOTController.subscribeToTopic("helloWorld", (payload) => {
       console.log(JSON.parse(payload));
