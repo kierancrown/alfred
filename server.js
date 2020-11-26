@@ -1,6 +1,6 @@
 import express from "express";
 import ip from "ip";
-import "./awsIOT";
+import test from "./awsIOT";
 import { log } from "./utils/logger.js";
 import { initController as initHueController } from "./controllers/hueController.js";
 import config from "./constants.js";
@@ -25,6 +25,7 @@ app.listen(config.SERVER_PORT, () => {
   const initAlfred = async () => {
     controllers.push(await initHueController(app));
     log("Successfully initialised Alfred!");
+    test();
   };
 
   initAlfred();
