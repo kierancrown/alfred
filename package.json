@@ -8,7 +8,7 @@
   "author": "Kieran Crown <kieran.crown@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec babel-node index.js",
+    "start": "nodemon --exec babel-node server.js",
     "server": "ssh pi@alfred"
   },
   "dependencies": {
